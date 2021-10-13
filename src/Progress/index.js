@@ -7,54 +7,54 @@ export default function ProgressScreen({navigation,route}){
 
     const onChangeSearch = query => setSearchQuery(query);
 
-   const {driverDatas} = route.params;
+  //  const {driverDatas} = route.params;
     const credentials = { email: "admin@mail.com", password: "admin1011" }
-    // const [token, setToken] = React.useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM4MzIxZWQ0LTMzOTMtNGE0YS1iNWRiLWYzYWIwYmE4MDk2YyIsImVtYWlsIjoiYWRtaW5AbWFpbC5jb20iLCJyb2xlIjoib3duZXIiLCJpYXQiOjE2MzQwNjg3ODAsImV4cCI6MTYzNDE1NTE4MH0.MrmIhON2un_3Xe-bb7PUNSfTTB7SK8W7QNa_pCWav7w");
+    const [token, setToken] = React.useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM4MzIxZWQ0LTMzOTMtNGE0YS1iNWRiLWYzYWIwYmE4MDk2YyIsImVtYWlsIjoiYWRtaW5AbWFpbC5jb20iLCJyb2xlIjoib3duZXIiLCJpYXQiOjE2MzQwNjg3ODAsImV4cCI6MTYzNDE1NTE4MH0.MrmIhON2un_3Xe-bb7PUNSfTTB7SK8W7QNa_pCWav7w");
     const [driverData,setDriverData] = useState({})
     const [loading,setLoading] = useState(false);
     /** To get the token */
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     // console.log(JSON.stringify(credentials))
+        // console.log(JSON.stringify(credentials))
 
-    //     fetch("http://nodebackend2.herokuapp.com/login/owner", {
-    //         method: 'POST',
-    //         headers: { 'content-type': 'application/json' },
-    //         body: JSON.stringify(credentials)
-    //     })
+        fetch("http://nodebackend2.herokuapp.com/login/owner", {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(credentials)
+        })
 
-    //         .then((response) => response.json())
+            .then((response) => response.json())
 
-    //         .then((response) => {
-    //             setToken(response.data.token)
+            .then((response) => {
+                setToken(response.data.token)
 
 
-    //         })
+            })
 
-    // }, [])
+    }, [])
 
     /* To get the data */
 
-    // useEffect(() => {   
-    //     (async function(){
-    //         try{
-    //             const response = await fetch("http://nodebackend2.herokuapp.com/view/driver", {
-    //                      method: 'GET',
-    //                      headers: { Authorization: 'Bearer ' + token },
+    useEffect(() => {   
+        (async function(){
+            try{
+                const response = await fetch("http://nodebackend2.herokuapp.com/view/driver", {
+                         method: 'GET',
+                         headers: { Authorization: 'Bearer ' + token },
             
-    //                  })
-    //             const json = await response.json();
-    //             console.log(json);
-    //             setDriverData(json)
-    //             setLoading(false);
-    //             // console.log('driverdata=>', driverData)
-    //         }
-    //         catch(e){
-    //             console.log('error==>',e);
-    //         }
-    //     })();
-    //     setLoading(true);
+                     })
+                const json = await response.json();
+                console.log(json);
+                setDriverData(json)
+                // console.log('driverdata=>', driverData)
+                setLoading(false);
+            }
+            catch(e){
+                console.log('error==>',e);
+            }
+          })();
+          setLoading(true);
         // fetch("http://nodebackend2.herokuapp.com/view/driver", {
         //     method: 'GET',
         //     headers: { Authorization: 'Bearer ' + token },
@@ -68,14 +68,20 @@ export default function ProgressScreen({navigation,route}){
         //         console.log(response)
         //     })
 
-    // }, [])
-    console.log('ddd=>',driverDatas);
+    }, [])
+    // console.log('ddd=>',driverData);
 
 
 
     
   return(
     // <SafeAreaView>
+    <>
+    {
+      loading ? <>
+      <ActivityIndicator animating={true} color={Colors.blue800}/>
+      </>
+      :
     <>
     <View style={{flexDirection:'row'}}>
         <Searchbar
@@ -96,31 +102,38 @@ export default function ProgressScreen({navigation,route}){
     </View>
     <View>
         <ScrollView>
-          {driverDatas.data.map((item,index)=>{
+          <Text>{driverData.data[0].firstname}</Text>
+          {/* {driverData.data.map((v,i)=>{
+            return <Text>{v.firstname}</Text>
+          })} */}
+          {/* {driverData.data.map((item,index)=>{
               return (
-                <List.Item
-                key={index}
-                title={item.firstname}
-                description={item.driverid}
-                left={props => <List.Icon {...props} icon={require('../../assets/seatbelt.png')} />}
-                onPress={()=>navigation.navigate('Details Screen',{
-                    selectedDriverData:driverDatas.data[index]
-                })}
-                />
+                <Text>{item.firstname}</Text>
+                // <List.Item
+                // key={index}
+                // title={item.firstname}
+                // description={item.driverid}
+                // left={props => <List.Icon {...props} icon={require('../../assets/seatbelt.png')} />}
+                // onPress={()=>navigation.navigate('Details Screen',{
+                //     selectedDriverData:driverData.data[index]
+                // })}
+                // />
               )
-          })}
+          })} */}
    
     </ScrollView>
         <View style={{position:'absolute',top:500,alignSelf:'center'}}>
         <Button
         mode="contained"
-        style={{}}
+        // style={{}}
         onPress={()=>navigation.navigate('Home')}
         >
             stop
         </Button>
         </View>
       </View>
+      </>
+    }
       </>
     // </SafeAreaView>
   )
