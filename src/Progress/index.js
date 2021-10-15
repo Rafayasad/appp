@@ -122,7 +122,7 @@ export default function ProgressScreen({navigation,route}){
             // })
 
     // }, [driverData])
-    fetch("http://nodebackend2.herokuapp.com/login/driver", {
+    fetch("https://nodebackend2.herokuapp.com/login/driver", {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(credentials)
@@ -137,7 +137,7 @@ export default function ProgressScreen({navigation,route}){
 
       })
 
-  fetch("http://nodebackend2.herokuapp.com/view/orderbyd", {
+  fetch("https://nodebackend2.herokuapp.com/view/orderbyd", {
            method: 'GET',
            headers: { Authorization: 'Bearer ' + token },
 
