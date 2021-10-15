@@ -11,14 +11,17 @@ export default function DetailsScreen({navigation,route}){
         Linking.openURL(`tel:${phone}`)
       };
 
+    const openMsgScreen = () => {
+        Linking.openURL(`sms:`)
+      };
 
   return(
     // <SafeAreaView>
     <>
     <View style={{width:"100%",backgroundColor:'#00B3D3'}}>
-        <Text style={{textAlign:'center',marginTop:5,fontSize:15}}>DELIVER: {'\n'}{selectedDriverData.ordername}{'\n'} {selectedDriverData.orderid}{'\n'} {selectedDriverData.createdby}{'\n'}{selectedDriverData.orderstatus}{'\n'} Created : {selectedDriverData.created_on}{'\n'}Last updated : {selectedDriverData.last_updated_on} {'\n'} vehicleno : {selectedDriverData.vehicleno}</Text>
+        <Text style={{textAlign:'center',marginTop:5,fontSize:15}}>DELIVER: {'\n'} Product Name : {selectedDriverData.ordername} {'\n'} Deliver Address : {selectedDriverData.recieveraddress}</Text>
     </View>
-    <View style={{flexDirection:'row',justifyContent:'space-around',marginTop:10}}>
+    {/* <View style={{flexDirection:'row',justifyContent:'space-around',marginTop:10}}>
         <Button
         mode="contained"
         >
@@ -35,7 +38,7 @@ export default function DetailsScreen({navigation,route}){
         >
             file
         </Button>
-    </View>
+    </View> */}
     <View style={{marginTop:10,marginLeft:10}}>
         <Text style={{fontSize:20,color:'black'}}>Instruction{'\n'}N/A</Text>
     </View>
@@ -52,13 +55,13 @@ export default function DetailsScreen({navigation,route}){
     icon={require('../../assets/right.png')}
     // color={Colors.red500}
     size={80}
-    onPress={() => console.log('Pressed')}
+    onPress={() => Alert.alert('Delivery Details','Confirmed.')}
   />
   <IconButton
     icon={require('../../assets/wrong.png')}
     // color={Colors.red500}
     size={80}
-    onPress={() => console.log('Pressed')}
+    onPress={() => navigation.navigate('Reason Screen')}
   />
     </View>
 
@@ -79,7 +82,7 @@ export default function DetailsScreen({navigation,route}){
     icon={require('../../assets/email.png')}
     // color={Colors.white}
     size={80}
-    onPress={() => console.log('Pressed')}
+    onPress={() => openMsgScreen()}
   />
     </View>
     </View>

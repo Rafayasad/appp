@@ -6,6 +6,7 @@ import HomeScreen from '../Home';
 import ProgressScreen from '../Progress';
 import DetailsScreen from '../Details';
 import LoginScreen from '../Login';
+import ReasonScreen from '../Reason';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,7 @@ export default function MainNavigator() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Progress Screen" component={ProgressScreen} />
           <Stack.Screen name="Details Screen" component={DetailsScreen} />
+          <Stack.Screen name="Reason Screen" component={ReasonScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );

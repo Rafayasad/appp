@@ -75,6 +75,15 @@ export default function HomeScreen({navigation}){
   return(
     // <SafeAreaView>
     <>
+    <View style={{}}>
+      <Button
+      style={{backgroundColor:'grey'}}
+      mode='contained'
+      onPress={()=>{navigation.navigate('Login')}}
+      >
+        LOG OUT
+      </Button>
+    </View>
     <View style={{flexDirection:'row'}}>
         <Searchbar
         style={{width:'80%',marginTop:5,marginLeft:5,borderRadius:15}}

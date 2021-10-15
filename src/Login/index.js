@@ -26,54 +26,111 @@ export default function LoginScreen({navigation}) {
         }, 10000);
     }
 
-    const isLogin =()=>{
-        setCredentails({email,password})
-        // if(!credentails){
-        //     setError('invalid');
-        // }
-        // else{
-        //     navigation.navigate('Home');
-        // }
-        const res = driverRes === 'success' ? navigation.navigate('Home') : setError('invalid')
-        return res
-     }
+    const isLogin = () => {
+       
+        setCredentails(prevState => ({
+            ...prevState,
+            email: email,
+            password:password
+        }));
+        
+        // setCredentails({ email, password })
+
+
+            (async function () {
+                try{
+                    await fetch("https://nodebackend2.herokuapp.com/login/driver", {
+                        method: 'POST',
+                        headers: { 'content-type': 'application/json' },
+                        body: JSON.stringify(credentails)
+                    })
+    
+                        .then((response) => response.json())
+    
+                        .then((response) => {
+                            // console.log('creee',credentails);
+                            // console.log('rsrs',response)
+                            // console.log('suc',response.status);
+    
+                            // console.log('token==>',token);
+                            // console.log('body cre',credentails)
+    
+                            if (response.status == "success") {
+                                setToken(response.data.token)
+                        
+                                
+                            }
+    
+                            // if(response.status=="error") {
+                            //     setError("Invalid Email or Password")
+                            // }
+    
+    
+    
+                        })
+
+                }
+                catch(e){   
+                        setError(e)
+                }
+
+            })();
+
+
+            (async function(){
+                try{
+                    await  fetch("https://nodebackend2.herokuapp.com/view/orderbyd", {
+                         method: 'GET',
+                         headers: { Authorization: 'Bearer ' + token },
+              
+                     })     
+                     .then((response) => response.json())
+              
+                     .then((response) => {
+                         setDriverData(response)
+                         console.log('res=>',response)
+                      if(response.status=="success")
+                               navigation.navigate("Home") 
+                     })
+
+                }
+
+                catch(e)
+                {
+                    setError(e)
+                }
+             })();
+
+    }
+
 // useEffect(()=>{
 
 
-(async function (){
+// (async function (){
 
-    await fetch("https://nodebackend2.herokuapp.com/login/driver", {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify(credentails)
-    })
+//     await fetch("https://nodebackend2.herokuapp.com/login/driver", {
+//         method: 'POST',
+//         headers: { 'content-type': 'application/json' },
+//         body: JSON.stringify(credentails)
+//     })
     
-    .then((response) => response.json())
+//     .then((response) => response.json())
     
-    .then((response) => {
-            console.log('creee',credentails);
-            console.log('rsrs',response)
-            console.log('suc',response.status);
-            setDriverRes(response.status)
-            setToken(response.data.token)
-            console.log('token==>',token);
-            console.log('body cre',credentails)
+//     .then((response) => {
+//             console.log('creee',credentails);
+//             console.log('rsrs',response)
+//             console.log('suc',response.status);
+//             setDriverRes(response.status)
+//             setToken(response.data.token)
+//             console.log('token==>',token);
+//             console.log('body cre',credentails)
   
   
-        })
+//         })
   
-})();
-    fetch("https://nodebackend2.herokuapp.com/view/orderbyd", {
-             method: 'GET',
-             headers: { Authorization: 'Bearer ' + token },
-  
-         })     
-         .then((response) => response.json())
-  
-         .then((response) => {
-             setDriverData(response)
-             console.log('res=>',response)
-         })
+// })();
+
+ 
 
 // },[])
   
@@ -83,6 +140,7 @@ export default function LoginScreen({navigation}) {
     return(
         <View style={{flex:1,alignContent:'center',justifyContent:'center'}}>
             <TextInput
+            style={{width:'80%',alignSelf:'center'}}
             mode='outlined'
             placeholder='Enter your email'
             label="Email"
@@ -90,6 +148,7 @@ export default function LoginScreen({navigation}) {
             onChangeText={email => setEmail(email)}
           />
           <TextInput
+          style={{width:'80%',alignSelf:'center'}}
           mode='outlined'
             label="Password"
             value={password}
@@ -103,6 +162,7 @@ export default function LoginScreen({navigation}) {
         >
             login
         </Button>
+        <Text style={{color:'grey',textAlign:'center',marginTop:10}}>( You must clicks two to three times on login button )</Text>
         {/* <ActivityIndicator animating={animating} color={Colors.red800}/> */}
         <Text>{error}</Text>
         {/* {console.log('credentails==>',credentails)} */}
