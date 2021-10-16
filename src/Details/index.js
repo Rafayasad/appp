@@ -19,7 +19,7 @@ export default function DetailsScreen({navigation,route}){
     // <SafeAreaView>
     <>
     <View style={{width:"100%",backgroundColor:'#00B3D3'}}>
-        <Text style={{textAlign:'center',marginTop:5,fontSize:15}}>DELIVER: {'\n'} Product Name : {selectedDriverData.ordername} {'\n'} Deliver Address : {selectedDriverData.recieveraddress}</Text>
+        <Text style={{textAlign:'center',marginTop:5,fontSize:15}}>DELIVER: {'\n'} Product Name : {selectedDriverData.ordername} {'\n'} Deliver Address : {selectedDriverData.recieveraddress}{'\n'} Reciver Phone Number : {selectedDriverData.recieverphone}{'\n'} Order ID : {selectedDriverData.orderid}{'\n'} Created On : {selectedDriverData.created_on}{'\n'} Expected Delivery Date : {selectedDriverData.expected_delivery_date}{'\n'} Last Updated On : {selectedDriverData.last_updated_on}{'\n'} Vehicle Number : {selectedDriverData.vehicleno}{'\n'} Delivered By : {selectedDriverData.deliveredby}</Text>
     </View>
     {/* <View style={{flexDirection:'row',justifyContent:'space-around',marginTop:10}}>
         <Button
