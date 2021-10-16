@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React , {useState , useEffect} from 'react';
 import {Text,Alert, SafeAreaView, View , Image, ScrollView} from 'react-native';
 import { Button , Searchbar,List ,ActivityIndicator,Colors } from 'react-native-paper';
@@ -132,7 +133,7 @@ export default function ProgressScreen({navigation,route}){
 
       .then((response) => {
           setToken(response.data.token)
-          console.log(token);
+          // console.log(token);
 
 
       })
@@ -186,7 +187,8 @@ export default function ProgressScreen({navigation,route}){
                description={item.orderid}
                left={props => <List.Icon {...props} icon={require('../../assets/seatbelt.png')} />}
                onPress={()=>navigation.navigate('Details Screen',{
-                   selectedDriverData:driverData[index]
+                   selectedDriverData:driverData[index],
+                   token:token
                })}
                />
             )

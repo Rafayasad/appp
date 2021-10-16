@@ -1,119 +1,133 @@
-import React , {useState,useEffect} from 'react';
-import {Text,Alert, SafeAreaView, View , Image} from 'react-native';
-import { Button , Searchbar } from 'react-native-paper';
-export default function HomeScreen({navigation}){
+/* eslint-disable prettier/prettier */
+import React, { useState, useEffect } from 'react';
+import { Text, Alert, SafeAreaView, View, Image } from 'react-native';
+import { Button, Searchbar } from 'react-native-paper';
+export default function HomeScreen({ navigation, route }) {
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const { token, credentials } = route.params;
+  const onChangeSearch = query => setSearchQuery(query);
 
-    const [searchQuery, setSearchQuery] = React.useState('');
-
-    const onChangeSearch = query => setSearchQuery(query);
-
-    // const credentials = { email: "admin@mail.com", password: "admin1011" }
-    // const [token, setToken] = useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM4MzIxZWQ0LTMzOTMtNGE0YS1iNWRiLWYzYWIwYmE4MDk2YyIsImVtYWlsIjoiYWRtaW5AbWFpbC5jb20iLCJyb2xlIjoib3duZXIiLCJpYXQiOjE2MzQwNjg3ODAsImV4cCI6MTYzNDE1NTE4MH0.MrmIhON2un_3Xe-bb7PUNSfTTB7SK8W7QNa_pCWav7w");
-    // const [driverData,setDriverData] = useState({})
-    // const [loading,setLoading] = useState(false);
-    /** To get the token */
-
-    // useEffect(() => {
-
-    //     // console.log(JSON.stringify(credentials))
-
-    //     fetch("http://nodebackend2.herokuapp.com/login/owner", {
-    //         method: 'POST',
-    //         headers: { 'content-type': 'application/json' },
-    //         body: JSON.stringify(credentials)
-    //     })
-
-    //         .then((response) => response.json())
-
-    //         .then((response) => {
-    //             setToken(response.data.token)
+  console.log(token);
 
 
-    //         })
+  // const credentials = { email: "admin@mail.com", password: "admin1011" }
+  // const [token, setToken] = useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM4MzIxZWQ0LTMzOTMtNGE0YS1iNWRiLWYzYWIwYmE4MDk2YyIsImVtYWlsIjoiYWRtaW5AbWFpbC5jb20iLCJyb2xlIjoib3duZXIiLCJpYXQiOjE2MzQwNjg3ODAsImV4cCI6MTYzNDE1NTE4MH0.MrmIhON2un_3Xe-bb7PUNSfTTB7SK8W7QNa_pCWav7w");
+  // const [driverData,setDriverData] = useState({})
+  // const [loading,setLoading] = useState(false);
+  /** To get the token */
 
-    // }, [])
+  // useEffect(() => {
 
-    /* To get the data */
+  //     // console.log(JSON.stringify(credentials))
 
-    // useEffect(() => {   
-    //     (async function(){
-    //         try{
-    //             const response = await fetch("http://nodebackend2.herokuapp.com/view/driver", {
-    //                      method: 'GET',
-    //                      headers: { Authorization: 'Bearer ' + token },
-            
-    //                  })
-    //             const json = await response.json();
-    //             console.log(json);
-    //             setDriverData(json)
-    //             setLoading(false);
-    //             // console.log('driverdata=>', driverData)
-    //         }
-    //         catch(e){
-    //             console.log('error==>',e);
-    //         }
-    //     })();
-    //     setLoading(true);
-        // fetch("http://nodebackend2.herokuapp.com/view/driver", {
-        //     method: 'GET',
-        //     headers: { Authorization: 'Bearer ' + token },
+  //     fetch("http://nodebackend2.herokuapp.com/login/owner", {
+  //         method: 'POST',
+  //         headers: { 'content-type': 'application/json' },
+  //         body: JSON.stringify(credentials)
+  //     })
 
-        // })
+  //         .then((response) => response.json())
 
-        //     .then((response) => response.json())
+  //         .then((response) => {
+  //             setToken(response.data.token)
 
-        //     .then((response) => {
-        //         setDriverData(response)
-        //         console.log(response)
-        //     })
+  //         })
 
-    // }, [])
+  // }, [])
+
+  /* To get the data */
+
+  // useEffect(() => {
+  //     (async function(){
+  //         try{
+  //             const response = await fetch("http://nodebackend2.herokuapp.com/view/driver", {
+  //                      method: 'GET',
+  //                      headers: { Authorization: 'Bearer ' + token },
+
+  //                  })
+  //             const json = await response.json();
+  //             console.log(json);
+  //             setDriverData(json)
+  //             setLoading(false);
+  //             // console.log('driverdata=>', driverData)
+  //         }
+  //         catch(e){
+  //             console.log('error==>',e);
+  //         }
+  //     })();
+  //     setLoading(true);
+  // fetch("http://nodebackend2.herokuapp.com/view/driver", {
+  //     method: 'GET',
+  //     headers: { Authorization: 'Bearer ' + token },
+
+  // })
+
+  //     .then((response) => response.json())
+
+  //     .then((response) => {
+  //         setDriverData(response)
+  //         console.log(response)
+  //     })
+
+  // }, [])
 
 
-
-  
-  return(
+  return (
     // <SafeAreaView>
     <>
-    <View style={{}}>
-      <Button
-      style={{backgroundColor:'grey'}}
-      mode='contained'
-      onPress={()=>{navigation.navigate('Login')}}
-      >
-        LOG OUT
-      </Button>
-    </View>
-    <View style={{flexDirection:'row'}}>
+      <View style={{}}>
+        <Button
+          style={{ backgroundColor: 'grey' }}
+          mode="contained"
+          onPress={() => {
+            fetch('http://nodebackend2.herokuapp.com/logout', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+            })
+
+              //  console.log(credentials,token)
+
+              .then((response) => {
+                response.json();
+                console.log("logging out")
+                navigation.navigate('Login');
+              });
+
+
+          }}>
+          LOG OUT
+        </Button>
+      </View>
+      <View style={{ flexDirection: 'row' }}>
         <Searchbar
-        style={{width:'80%',marginTop:5,marginLeft:5,borderRadius:15}}
+          style={{ width: '80%', marginTop: 5, marginLeft: 5, borderRadius: 15 }}
           placeholder="Search"
           onChangeText={onChangeSearch}
           value={searchQuery}
           icon={require('../../assets/search.png')}
         />
-      <Image source={require('../../assets/qr-code.png')}
-      style={{height:50,width:50,marginTop:5,marginLeft:5}}
-      />
-    </View>
-    {/* <View style={{width:'100%',height:'3%',backgroundColor:'#00B3D3',marginTop:5}}> */}
-        {/* <Text style={{textAlign:"center"}}>
+        <Image
+          source={require('../../assets/qr-code.png')}
+          style={{ height: 50, width: 50, marginTop: 5, marginLeft: 5 }}
+        />
+      </View>
+      {/* <View style={{width:'100%',height:'3%',backgroundColor:'#00B3D3',marginTop:5}}> */}
+      {/* <Text style={{textAlign:"center"}}>
             Detrack ID :  {driverData && driverData.data[0],driverid}
         </Text> */}
-    {/* </View> */}
-      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+      {/* </View> */}
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>Tap the start button to begin</Text>
-        <View style={{position:'absolute',top:500}}>
-        <Button
-        mode="contained"
-        // style={{}}
-        onPress={()=>navigation.navigate('Progress Screen')}
-        >
+        <View style={{ position: 'absolute', top: 500 }}>
+          <Button
+            mode="contained"
+            // style={{}}
+            onPress={() => navigation.navigate('Progress Screen', { token: token })}>
             start
-        </Button>
+          </Button>
         </View>
       </View>
-      </>
+    </>
     // </SafeAreaView>
-  )
+  );
 }
